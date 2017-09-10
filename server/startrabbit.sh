@@ -20,7 +20,7 @@ if [ -z "$CLUSTERED" ]; then
 	/usr/sbin/rabbitmq-server &
 	rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid
 	change_default_user	
-	rabbitmqctl set_policy test-shard "amq.direct" '{"shards-per-node": 2}'
+	#rabbitmqctl set_policy test-shard "^shard$" '{"shards-per-node": 2, "routing-key": "1234"}'
 	tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
 else
 	if [ -z "$CLUSTER_WITH" ]; then

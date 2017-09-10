@@ -28,6 +28,7 @@ else
 		/usr/sbin/rabbitmq-server&
 		rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid
 		tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
+		/usr/sbin/rabbitmqctl set_policy test-shard "amq.direct" '{"shards-per-node": 2}'
 	else
 		/usr/sbin/rabbitmq-server &
 		rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid

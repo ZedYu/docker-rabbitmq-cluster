@@ -1,4 +1,4 @@
 TAG="3.6.10"
 
-docker build -t bijukunjummen/rabbitmq-base:$TAG base
-docker build -t bijukunjummen/rabbitmq-server:$TAG server
+docker build -t zed1999/rabbitmq-base base
+docker build -t zed1999/rabbitmq-server server

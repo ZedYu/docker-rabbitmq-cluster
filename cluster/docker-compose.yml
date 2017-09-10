@@ -1,7 +1,7 @@
 version: '2'
 services:
   rabbit1:
-    image: bijukunjummen/rabbitmq-server:3.6.10
+    image: zed1999/rabbitmq-server
     hostname: rabbit1
     ports:
       - "5672:5672"
@@ -10,7 +10,7 @@ services:
       - RABBITMQ_DEFAULT_USER=myuser
       - RABBITMQ_DEFAULT_PASS=mypass
   rabbit2:
-    image: bijukunjummen/rabbitmq-server:3.6.10
+    image: zed1999/rabbitmq-server
     hostname: rabbit2
     links:
       - rabbit1
@@ -23,7 +23,7 @@ services:
         - "15673:15672"
   
   rabbit3:
-    image: bijukunjummen/rabbitmq-server:3.6.10
+    image: zed1999/rabbitmq-server
     hostname: rabbit3
     links:
       - rabbit1

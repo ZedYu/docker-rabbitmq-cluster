@@ -20,8 +20,7 @@ if [ -z "$CLUSTERED" ]; then
 	/usr/sbin/rabbitmq-server &
 	rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid
 	change_default_user	
-	echo "setting policy"
-	set_policy test-shard "amq.direct" '{"shards-per-node": 2}'
+	rabbitmqctl set_policy test-shard "amq.direct" '{"shards-per-node": 2}'
 	tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
 else
 	if [ -z "$CLUSTER_WITH" ]; then
@@ -30,7 +29,6 @@ else
 		/usr/sbin/rabbitmq-server&
 		rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid
 		tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
-		/usr/sbin/rabbitmqctl set_policy test-shard "amq.direct" '{"shards-per-node": 2}'
 	else
 		/usr/sbin/rabbitmq-server &
 		rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit\@$HOSTNAME.pid
@@ -41,8 +39,6 @@ else
 			rabbitmqctl join_cluster --ram rabbit@$CLUSTER_WITH
 		fi
 		rabbitmqctl start_app
-		echo "setting policy"
-		rabbitmqctl set_policy test-shard "amq.direct" '{"shards-per-node": 2}'
                 
 		# Tail to keep the a foreground process active..
 		tail -f /var/log/rabbitmq/rabbit\@$HOSTNAME.log
